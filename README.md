@@ -199,3 +199,8 @@ Enrolments → Managed via the Registration table.
 Results → Stored in the Results table, linked to participants and events.
 
 Weather Integration → WeatherInfo attribute in Results supports historical race-day conditions.
+
+YOUTUBE LINKS:
+ERD:  https://youtu.be/fEcMnPNDjGo
+ENDPOINT PLAN: https://youtu.be/kN4TUphUJdo
+SQL SCRIPT: https://youtu.be/QeZvEDHchAs
