@@ -1,7 +1,14 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\emeris\\source\\repos\\GarryHack\\PROG6212_POE\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\emeris\\Desktop\\PROG_POE_PART_2\\RACE DAY!\\RaceDay.Tests\\AuthTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\emeris\\AppData\\Local\\Microsoft\\VisualStudio\\18.0_95079df7\\settings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +16,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -20,8 +27,30 @@
               "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthTests.cs",
+              "DocumentMoniker": "C:\\Users\\emeris\\Desktop\\PROG_POE_PART_2\\RACE DAY!\\RaceDay.Tests\\AuthTests.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\PROG_POE_PART_2\\RACE DAY!\\RaceDay.Tests\\AuthTests.cs",
+              "ToolTip": "C:\\Users\\emeris\\Desktop\\PROG_POE_PART_2\\RACE DAY!\\RaceDay.Tests\\AuthTests.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\PROG_POE_PART_2\\RACE DAY!\\RaceDay.Tests\\AuthTests.cs",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T14:14:03.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "settings.json",
+              "DocumentMoniker": "C:\\Users\\emeris\\AppData\\Local\\Microsoft\\VisualStudio\\18.0_95079df7\\settings.json",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Microsoft\\VisualStudio\\18.0_95079df7\\settings.json",
+              "ToolTip": "C:\\Users\\emeris\\AppData\\Local\\Microsoft\\VisualStudio\\18.0_95079df7\\settings.json",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Microsoft\\VisualStudio\\18.0_95079df7\\settings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-10-19T14:12:14.033Z",
+              "EditorCaption": ""
             }
           ]
         }
