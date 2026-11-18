@@ -1,0 +1,35 @@
+﻿@model List<Result>
+@{
+    ViewData["Title"] = "My results";
+}
+<div class="page-head"><h1>My results</h1></div>
+
+@if (ViewBag.Error is string err)
+{
+    <div class="alert alert-danger">@err</div>
+}
+
+@if (!Model.Any())
+{
+    <div class="empty"><h2>No results yet</h2><p>Once an organiser publishes the results of an event you entered, your race history shows up here.</p></div>
+}
+else
+{
+    <div class="table-responsive panel p-0">
+        <table class="table rd-table mb-0">
+            <thead><tr><th>Event</th><th>Date</th><th>Category</th><th>Finish time</th><th>Position</th></tr></thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td><a asp-controller="Events" asp-action="Details" asp-route-id="@r.Result.EventId">@r.Result.EventName</a></td>
+                        <td>@(r.Event != null ? Fmt.Date(r.Event.Date) : "–")</td>
+                        <td>@r.Result.CategoryName</td>
+                        <td class="num">@Fmt.Time(r.Result.FinishTime)</td>
+                        <td><b>@Fmt.Ordinal(r.Result.Position)</b>@(r.Finishers > 0 ? $" out of {r.Finishers} finishers" : "")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

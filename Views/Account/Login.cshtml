@@ -1,0 +1,31 @@
+﻿@model Registration
+@{
+    ViewData["Title"] = "Log in";
+    var returnUrl = ViewBag.ReturnUrl as string;
+}
+<div class="auth-wrap">
+    <div class="auth-panel">
+        <h1>Back on the start line</h1>
+        <p class="lead-sm">Log in to enter events, track your results or manage your races.</p>
+
+        @if (ViewBag.Expired == true)
+        {
+            <div class="alert alert-warning">Your session ended. Please log in again.</div>
+        }
+        <form asp-action="Login" asp-route-returnUrl="@returnUrl" method="post" novalidate>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" autocomplete="email" autofocus />
+                <span asp-validation-for="Email" class="field-error"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" autocomplete="current-password" />
+                <span asp-validation-for="Password" class="field-error"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg w-100">Log in</button>
+        </form>
+        <p class="mt-4 mb-0 text-center">New to RaceDay? <a asp-action="Register">Create an account</a></p>
+    </div>
+</div>

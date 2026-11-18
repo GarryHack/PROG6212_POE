@@ -1,0 +1,61 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Categories";
+}
+<a class="back-link" asp-action="Events">&larr; My events</a>
+<div class="page-head"><h1>Categories <small>@Model.Event.Name</small></h1></div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        @if (!Category.Any())
+        {
+            <div class="empty"><h2>No categories yet</h2><p>Add distance or age categories so participants can choose one when they enter.</p></div>
+        }
+        else
+        {
+            <div class="table-responsive panel p-0">
+                <table class="table rd-table mb-0">
+                    <thead><tr><th>Category</th><th>Distance</th><th>Minimum age</th><th></th></tr></thead>
+                    <tbody>
+                        @foreach (var c in Model.Category)
+                        {
+                            <tr>
+                                <td>@c.Name</td>
+                                <td class="num">@Fmt.Km(c.Distance)</td>
+                                <td>@(c.AgeLimit?.ToString() ?? "Open")</td>
+                                <td class="text-end">
+                                    <form asp-action="DeleteCategory" asp-route-eventId="@Model.Event.Id" asp-route-id="@c.Id" method="post" class="d-inline"
+                                          onsubmit="return confirm('Remove this category?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+    <div class="col-lg-5">
+        <form asp-action="AddCategory" asp-route-eventId="@Model.Event.Id" method="post" class="panel" novalidate>
+            <h2>Add a category</h2>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Form.Name" class="form-label">Name</label>
+                <input asp-for="Form.Name" class="form-control" placeholder="e.g. 10km or Under 20" />
+                <span asp-validation-for="Form.Name" class="field-error"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Form.Distance" class="form-label">Distance (km)</label>
+                <input asp-for="Form.Distance" type="number" step="0.01" min="0.01" class="form-control" />
+                <span asp-validation-for="Form.Distance" class="field-error"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Form.AgeLimit" class="form-label"></label>
+                <input asp-for="Form.AgeLimit" type="number" min="1" max="120" class="form-control" />
+                <span asp-validation-for="Form.AgeLimit" class="field-error"></span>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Add category</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+﻿@model Registration
+@{
+    ViewData["Title"] = "Register";
+    var isOrg = Model.Role == "Organiser";
+}
+<div class="auth-wrap">
+    <div class="auth-panel wide">
+        <h1>Get your bib</h1>
+        <p class="lead-sm">Create a RaceDay account to enter events or run your own.</p>
+
+        <form asp-action="Register" method="post" novalidate>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="role-pick mb-4">
+                <input type="radio" class="btn-check" name="Role" id="role-p" value="Participant" checked="@(!isOrg)" />
+                <label class="btn btn-outline-dark" for="role-p">I'm a participant</label>
+                <input type="radio" class="btn-check" name="Role" id="role-o" value="Organiser" checked="@isOrg" />
+                <label class="btn btn-outline-dark" for="role-o">I'm an organiser</label>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <input asp-for="FirstName" class="form-control" autocomplete="given-name" />
+                    <span asp-validation-for="FirstName" class="field-error"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="LastName" class="form-label"></label>
+                    <input asp-for="LastName" class="form-control" autocomplete="family-name" />
+                    <span asp-validation-for="LastName" class="field-error"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" autocomplete="email" />
+                    <span asp-validation-for="Email" class="field-error"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Phone" class="form-label">Phone (optional)</label>
+                    <input asp-for="Phone" class="form-control" autocomplete="tel" />
+                    <span asp-validation-for="Phone" class="field-error"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" autocomplete="new-password" />
+                    <span asp-validation-for="Password" class="field-error"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" />
+                    <span asp-validation-for="ConfirmPassword" class="field-error"></span>
+                </div>
+            </div>
+
+            <div id="participant-fields" class="row g-3 mt-0" style="@(isOrg ? "display:none" : "")">
+                <div class="col-md-6">
+                    <label asp-for="Dob" class="form-label"></label>
+                    <input asp-for="Dob" type="date" class="form-control" />
+                    <span asp-validation-for="Dob" class="field-error"></span>
+                </div>
+            </div>
+
+            <div id="organiser-fields" class="row g-3 mt-0" style="@(isOrg ? "" : "display:none")">
+                <div class="col-md-6">
+                    <label asp-for="OrganisationName" class="form-label"></label>
+                    <input asp-for="OrganisationName" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="OrganiserCode" class="form-label"></label>
+                    <input asp-for="OrganiserCode" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="OrganiserCode" class="field-error"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg w-100 mt-4">Create account</button>
+        </form>
+        <p class="mt-4 mb-0 text-center">Already registered? <a asp-action="Login">Log in</a></p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var p = document.getElementById('participant-fields');
+            var o = document.getElementById('organiser-fields');
+            document.querySelectorAll('input[name=Role]').forEach(function (r) {
+                r.addEventListener('change', function () {
+                    var org = document.getElementById('role-o').checked;
+                    o.style.display = org ? '' : 'none';
+                    p.style.display = org ? 'none' : '';
+                });
+            });
+        })();
+    </script>
+}
