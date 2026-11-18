@@ -1,30 +1,33 @@
-# RaceDay API – Part 2
+# Part 3 – RaceDay.Web (ASP.NET Core MVC) + Azure Blob + Docker
+
+`RaceDay.Web` is the web front end. It has **no database access and no business logic**: every read and write is an HTTP call to the Part 2 API (`RaceDay.Web/Services/RaceDayApi.cs`). The API's login cookie is stored in the user's server-side **session** and re-sent on each call, so the user's identity and role follow them across every page.
+
+## Run it locally (two terminals)
+1. **API** (from the repo root):
+   ```
+   dotnet run --project RaceDay.Api --launch-profile http --urls http://0.0.0.0:5080
+   ```
+   First time only: run `Update-Database` (see Part 2 steps) after adding the Part 3 migration:
+   `Add-Migration Part3_Images` then `Update-Database` in the Package Manager Console (default project `RaceDay.Api`).
+2. **Web app**:
+   ```
+   dotnet run --project RaceDay.Web
+   ```
+   Open http://localhost:5090. The API address comes from `ApiBaseUrl` in `RaceDay.Web/appsettings.json` (default `http://localhost:5080`).
 
 
-## Prerequisites
-- Visual Studio 2022 with the "ASP.NET and web development" workload
-- .NET 8 SDK
-- SQL Server LocalDB (installed with Visual Studio) or any SQL Server
-
-## Setup and run
-Swagger opens at `https://localhost:<port>/swagger`.
-Run tests: **Test → Run All Tests** (or `dotnet test`).
-
-## Roles
-| Role | Can do |
-|---|---|
-| **Organizer** | Create/update/delete OWN events and categories; view enrolments for OWN categories; record results for OWN events; view/update own profile |
-| **Participant** | View events/categories/leaderboards; enrol in a category; view own enrolments and results; view/update own profile |
-
-Organisers register with a secret `organiser_code` (set in `appsettings.json` → `OrganiserSignupCode`) so nobody can simply pick the Organiser role.
-
-## Authentication
-Cookie-based session. `POST /api/auth/login` creates a session cookie holding the user id and role. Passwords are hashed (ASP.NET Core `PasswordHasher`), never stored in plain text.
+## Run in Docker (single command)
+Start the API first (step 1 above), then from the repo root:
+```
+docker build -f RaceDay.Web/Dockerfile -t raceday-web . && docker run --rm -p 8080:8080 --add-host=host.docker.internal:host-gateway -e ApiBaseUrl=http://host.docker.internal:5080 raceday-web
+```
+Open http://localhost:8080. It behaves the same as `dotnet run`; only the API address is injected through `ApiBaseUrl`.
 
 
 
-## Changes from the Part 1 plan (and why)
-- Added `Event_Type` and `Distance` columns to Event (required by the Part 2 brief).
-- Added `Password_Hash` to Organiser and Participant (needed for login).
-- Session cookie instead of JWT (Part 2 brief asks for session management).
-- Organiser registration requires a secret code.
+## Pages
+- **Organiser:** Dashboard, My events (create / edit / delete + banner), Categories, Enrolments, Results entry.
+- **Participant:** Events (filter by text, type, dates), Event details (categories, forecast, enter), My enrolments, My results (e.g. "47th out of 312 finishers"), Profile + picture.
+- Unauthenticated users are redirected to Log in; the wrong role is sent to an "access denied" page.
+
+
